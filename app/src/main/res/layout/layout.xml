@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,38 +8,52 @@
     android:background="@color/bg_color"
     tools:context=".MainActivity">
 
+    <!-- ScrollView for the question and response -->
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/idTILQuery"
-        android:layout_alignParentTop="true"
+        android:id="@+id/scrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/idTILQuery"
         android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="5dp"
         android:layout_marginBottom="5dp"
         android:padding="5dp">
 
+        <!-- LinearLayout to hold the question and response TextViews -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- text view for displaying question-->
+            <!-- TextView for displaying question -->
+            <Button
+                android:id="@+id/btnUploadPdf"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:onClick="uploadPdfToFirebase"
+                android:text="Upload PDF" />
+
             <TextView
                 android:id="@+id/idTVQuestion"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:padding="4dp"
                 android:text="Question"
                 android:textColor="@color/white"
                 android:textSize="17sp" />
 
-            <!-- text view for displaying response-->
+            <!-- TextView for displaying response -->
             <TextView
                 android:id="@+id/txtResponse"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:padding="4dp"
                 android:text="Response"
@@ -47,23 +62,26 @@
         </LinearLayout>
 
     </ScrollView>
-    <!-- text field for asking question-->
+
+    <!-- TextInputLayout for asking a question -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/idTILQuery"
-
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         android:layout_margin="5dp"
         android:hint="Enter your query"
         android:padding="5dp"
         android:textColorHint="@color/white"
         app:hintTextColor="@color/white">
 
+        <!-- TextInputEditText for entering a question -->
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etQuestion"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:background="@color/edt_back_color"
             android:drawableEnd="@drawable/ic_send"
             android:drawableTint="@color/white"
@@ -76,4 +94,5 @@
             android:textSize="14sp"
             tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
     </com.google.android.material.textfield.TextInputLayout>
-</RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
