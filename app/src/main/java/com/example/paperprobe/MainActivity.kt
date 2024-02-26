@@ -1,15 +1,13 @@
 package com.example.paperprobe
 
+import android.Manifest
 import android.os.Bundle
 import android.util.Log
 import android.view.inputmethod.EditorInfo
-import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textfield.TextInputEditText
-import com.google.firebase.Firebase
-import com.google.firebase.storage.storage
 import org.json.JSONArray
 import java.io.IOException
 import okhttp3.*
@@ -21,6 +19,8 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
+import android.view.View
+import android.widget.Button
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import com.example.paperprobe.databinding.LayoutBinding
@@ -31,6 +31,7 @@ import java.util.*
 
 class MainActivity : AppCompatActivity() {
     private val client = OkHttpClient()
+
 
     private var _binding:LayoutBinding? = null
     private val binding:LayoutBinding
@@ -81,6 +82,13 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        binding.btnViewPdf.setOnClickListener {
+            val intent = Intent(this, PdfSummaizerActivity::class.java)
+            startActivity(intent)
+        }
+
+
+
         etQuestion = findViewById<TextInputEditText>(R.id.etQuestion)
         idTVQuestion = findViewById<TextView>(R.id.idTVQuestion)
         txtResponse = findViewById<TextView>(R.id.txtResponse)
@@ -106,7 +114,6 @@ class MainActivity : AppCompatActivity() {
         })
 
 
-
     }
 
         fun getResponse(question: String, callback: (String) -> Unit) {
@@ -115,7 +122,7 @@ class MainActivity : AppCompatActivity() {
             idTVQuestion.text = question
             etQuestion.setText("")
 
-            val apiKey = "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"
+            val apiKey = "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"
             val url = "https://api.openai.com/v1/completions"
 
             val requestBody = """
@@ -126,12 +133,6 @@ class MainActivity : AppCompatActivity() {
             "temperature": 0.7
             }
             """.trimIndent()
-
-            val client = OkHttpClient.Builder()
-                .connectTimeout(30, TimeUnit.SECONDS) // Adjust the timeout duration as needed
-                .readTimeout(30, TimeUnit.SECONDS)
-                .writeTimeout(30, TimeUnit.SECONDS)
-                .build()
 
 
             val request = Request.Builder()
@@ -161,21 +162,15 @@ class MainActivity : AppCompatActivity() {
             })
         }
 
-
-
-
-
-
-
     fun uploadFile(byteArray: ByteArray) {
         val storageRef = storage.reference
-        val storageRef2 = storageRef.child("images/${Date().time}")
+        val storageRef2 = storageRef.child("uploads/${Date().time}")
         storageRef2.putBytes(byteArray)
             .addOnSuccessListener {
-                this.makeToast("success")
+                this.makeToast("PDF uploaded successfully")
+
                 // taking the public url
                 storageRef2.downloadUrl.addOnSuccessListener {
-                    Log.d("TAG", "uploadFile: $it")
                 }
 
             }
@@ -192,16 +187,15 @@ class MainActivity : AppCompatActivity() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             if (ActivityCompat.checkSelfPermission(
                     context,
-                    android.Manifest.permission.READ_EXTERNAL_STORAGE
+                    Manifest.permission.READ_EXTERNAL_STORAGE
                 ) == PackageManager.PERMISSION_GRANTED
             ) {
                 call.invoke()
             } else {
-                requestPermission.launch(android.Manifest.permission.READ_EXTERNAL_STORAGE)
+                requestPermission.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
             }
         }
     }
-
 
 
 }

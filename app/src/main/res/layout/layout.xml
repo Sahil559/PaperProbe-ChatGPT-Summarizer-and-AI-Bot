@@ -39,6 +39,16 @@
                 android:onClick="uploadPdfToFirebase"
                 android:text="Upload PDF" />
 
+
+            <Button
+                android:id="@+id/btnViewPdf"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:onClick="ViewPdf"
+                android:text="View All PDF" />
+
             <TextView
                 android:id="@+id/idTVQuestion"
                 android:layout_width="match_parent"

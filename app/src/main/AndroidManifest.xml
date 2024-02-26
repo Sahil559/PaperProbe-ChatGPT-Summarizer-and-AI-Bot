@@ -4,7 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -16,6 +16,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PaperProbe"
         tools:targetApi="31">
+        <activity
+            android:name=".PdfSummaizerActivity"
+            android:exported="true" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true"

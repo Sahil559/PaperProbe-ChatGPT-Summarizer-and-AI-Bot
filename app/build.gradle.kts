@@ -50,7 +50,9 @@ android {
     viewBinding {
         enable=true
     }
+
 }
+
 
 dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
@@ -62,6 +64,12 @@ dependencies {
     implementation("com.google.firebase:firebase-auth")
     implementation("com.google.firebase:firebase-firestore")
     implementation("com.google.firebase:firebase-storage")
+
+    implementation ("com.tom-roush:pdfbox-android:2.0.27.0")
+    implementation ("org.apache.pdfbox:pdfbox:2.0.35")
+    implementation ("ai.openai.gpt:openai-java-sdk:1.0.0")
+
+
 
 
     implementation("androidx.compose.runtime:runtime-livedata:1.6.1")
@@ -75,6 +83,8 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
     implementation("com.google.android.material:material:1.11.0")
+    implementation("androidx.appcompat:appcompat:1.6.1")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
@@ -82,5 +92,8 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
+    implementation ("androidx.constraintlayout:constraintlayout:2.1.4")
+
+
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
 }
